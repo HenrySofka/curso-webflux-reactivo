@@ -1,0 +1,239 @@
+- Crear un documento
+- Documentos -> Objectos de tipo JSON
+-------------------------------------
+user1 = {
+    'usarname': 'user1',
+    'age': 27,
+    'email': 'user1@example1.com'
+};
+
+user2 = {
+    'usarname': 'user2',
+    'age': 22,
+    'email': 'user2@example1.com'
+};
+-------------------------------------
+
+- Se valida que la base de datos exista
+- Se valida que la colección exista
+-------------------------------------
+db.users.insert(user1);
+-------------------------------------
+
+- El ObjectId "_id" se crea a partir de cuatro parametros
+    1. Timestamp
+    2. Identificador por el servidor
+    3. PID
+    4. AutoIncrement
+
+- insertOne()
+    - Permite insertar únicamente un registro
+    - Permite verificar la id que se genero al instante
+-------------------------------------
+user3 = {
+    'usarname': 'user3',
+    'age': 33,
+    'email': 'user3@example.com'
+};
+
+db.users.insertOne(user3);
+-------------------------------------
+
+- insertMany()
+    - Permite insertar muchos registros
+    - Permite verificar la id que se genero al instante
+-------------------------------------
+db.users.insertMany([
+    {
+    'usarname': 'user4',
+    'age': 34,
+    'email': 'user4@example.com'
+    },
+    {
+    'usarname': 'user5',
+    'age': 35,
+    'email': 'user5@example.com'
+    },
+    {
+    'usarname': 'user6',
+    'age': 36,
+    'email': 'user6@example.com'
+    }
+]);
+-------------------------------------
+
+- Save
+    - Si el objeto no existe (_id), se crea
+    - Si el objeto si existe (_id), se actualiza
+-------------------------------------
+user7 = {
+    'usarname': 'user7',
+    'age': 37,
+    'email': 'user7@example.com'
+};
+
+db.users.save(user7);
+-------------------------------------
+
+-------------------------------------
+db.users.insertMany([
+    {
+        'username': 'user1',
+        'age': 11,
+        'email': 'user4@example.com'
+    },
+    {
+        'username': 'user2',
+        'age': 35,
+        'email': 'user5@example.com'
+    },
+    {
+        'username': 'user3',
+        'age': 8,
+        'email': 'user6@example.com'
+    },
+    {
+        'username': 'user4',
+        'age': 34,
+        'email': 'user4@example.com'
+    },
+    {
+        'username': 'user5',
+        'age': 35,
+        'email': 'user5@example.com'
+    },
+    {
+        'username': 'user6',
+        'age': 36,
+        'email': 'user6@example.com'
+    },
+    {
+        'username': 'user7',
+        'age': 37,
+        'email': 'user7@example.com'
+    },
+    {
+        'username': 'user8',
+        'age': 38,
+        'email': 'user8@example.com',
+        'status' : 'inactive'
+    },
+    {
+        'username': 'user9',
+        'age': 39,
+        'email': 'user9@example.com',
+        'status' : 'inactive'
+    },
+    {
+        'username': 'user10',
+        'age': 40,
+        'email': 'user40@example.com',
+        'status' : 'inactive'
+    },
+    {
+        'username': 'user11',
+        'age': 41,
+        'email': 'user11@example.com',
+        'status' : 'active'
+    }
+]);
+-------------------------------------
+
+Ejercicio:
+    1. Obtener el usuario con el usarname user7
+        // Retorna un cursor "Colección"
+        - db.users.find({ usarname: 'user7' });
+        // Retorna un documento "Objeto"
+        - db.users.findOne({ usarname: 'user7' });
+
+    2. Obtener todos los usuarios con un edad mayor a 10
+        // $gt: 10 --> > 10
+        // gt --> >
+        // gte --> >=
+        // lt --> <
+        // lte --> <=
+        - db.users.find({
+            age: { $gt: 10 }
+        });
+
+    3. Obtener todos los usuarios con edad menor a 50
+        // lt --> <
+        // lte --> <=
+        // Si es una colección "cursor" se le puede
+        // agregar el método count()
+        - db.users.find({
+            age: { $lt: 50 }
+        }).count();
+
+
+    4. Obtener todos los usuarios con edad mayor 10
+       y cuyo estatus es activo
+
+       //Operador lógico $and: [{},{}, ..., {}]
+        - db.users.find({
+            $and : [
+                { age: { $gt: 10 } },
+                { status: 'active' }
+            ]
+        });
+
+    5. Obtener todos los usuarios cuya edad no sea 11
+        // $ne --> !=
+        - db.users.find({
+            age: { $ne: 10 } 
+        });
+
+    6. Obtener todos los usuarios que tengan por 
+       edad: 27 o 40 o 11
+
+       //Operador lógico $or: [{},{}, ..., {}]
+        - db.users.find({
+            $or : [
+                { age: 27 },
+                { age: 40 },
+                { age: 11 }
+            ]
+        });
+
+        //Operador lógico $in: [val,val, ..., val]
+        - db.users.find({
+           age: {$in: [27, 40, 11]}
+        });
+
+    7. Obtener todos los usuarios con atributo estatus
+        
+        // Permite verificar los documentos con un 
+        // atributo en especifico
+        - db.users.find({
+           status: {$exists: true}
+        });
+
+    8. Obtener todos los usuarios con estado activo
+        - db.users.find({
+            status: 'active' 
+        });
+
+        - db.users.find({
+           $and: [
+               { status: {$exists: true} },
+               { status: "active" },
+           ]
+        });
+
+    9. Obtener todos los usuarios con estatus activo y
+       correo electronico
+        - db.users.find({
+           $and: [
+               { status: {$exists: true} },
+               { email: {$exists: true} },
+               { status: "active" },
+           ]
+        });
+
+    10. Obtener el usuario con mayor edad
+        - db.users.find()
+            .sort({ age: -1 })
+            .limit(1);
+            
+    11. Obtener a los tres usuarios más jovenes
+        - db.users.find().sort({ age: 1 }).limit(3);

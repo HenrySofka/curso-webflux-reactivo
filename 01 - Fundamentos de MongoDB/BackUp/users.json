@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "62a26d21495e126b89558e3f"
+  },
+  "username": "user13",
+  "email": "user13@gmail.com",
+  "age": 29,
+  "status": "active",
+  "address": {
+    "zip": 110,
+    "county": "MX",
+    "location": {
+      "lat": -180,
+      "1ong": 250
+    }
+  },
+  "course": [
+    "Python",
+    "MongoDB",
+    "Ruby",
+    "Java",
+    "C++"
+  ],
+  "comments": [
+    {
+      "body": "best course",
+      "like": true,
+      "tags": [
+        "MongoDB"
+      ]
+    },
+    {
+      "body": "super excited",
+      "like": true,
+      "tags": [
+        "#God"
+      ]
+    },
+    {
+      "body": "the course is ok"
+    },
+    {
+      "body": "Muy bueno el curso che",
+      "like": true
+    },
+    {
+      "body": "El curso de MongoDB es God",
+      "like": true
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "62a26d21495e126b89558e40"
+  },
+  "username": "user14",
+  "email": "user14@gmail.com",
+  "age": 29,
+  "status": "active",
+  "comments": [
+    {
+      "body": "best course",
+      "like": true
+    }
+  ],
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26d21495e126b89558e41"
+  },
+  "username": "user15",
+  "email": "user15@gmail.com",
+  "age": 29,
+  "status": "active",
+  "comments": [
+    {
+      "body": "best course",
+      "like": false
+    }
+  ],
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e42"
+  },
+  "username": "user1",
+  "age": 11,
+  "email": "user4@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e43"
+  },
+  "username": "user2",
+  "age": 35,
+  "email": "user5@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e44"
+  },
+  "username": "user3",
+  "age": 8,
+  "email": "user6@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e45"
+  },
+  "username": "user4",
+  "age": 34,
+  "email": "user4@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e46"
+  },
+  "username": "user5",
+  "age": 35,
+  "email": "user5@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e47"
+  },
+  "username": "user6",
+  "age": 36,
+  "email": "user6@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e48"
+  },
+  "username": "user7",
+  "age": 37,
+  "email": "user7@example.com",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e49"
+  },
+  "username": "user8",
+  "age": 38,
+  "email": "user8@example.com",
+  "status": "inactive",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e4a"
+  },
+  "username": "user9",
+  "age": 39,
+  "email": "user9@example.com",
+  "status": "inactive",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e4b"
+  },
+  "username": "user10",
+  "age": 40,
+  "email": "user40@example.com",
+  "status": "inactive",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a26da4495e126b89558e4c"
+  },
+  "username": "user11",
+  "age": 41,
+  "email": "user11@example.com",
+  "status": "active",
+  "address": {
+    "zip": 110,
+    "country": "UY"
+  }
+},{
+  "_id": {
+    "$oid": "62a3286182a18de3bc11e86f"
+  },
+  "username": "user16",
+  "email": "user16@gmail.com",
+  "age": 29,
+  "status": "active",
+  "address": {
+    "zip": 110,
+    "country": "MX"
+  },
+  "course": [
+    "Python",
+    "MongoDB",
+    "Ruby",
+    "Java"
+  ],
+  "comments": [
+    {
+      "body": "best course",
+      "like": true,
+      "tags": [
+        "MongoDB"
+      ]
+    },
+    {
+      "body": "super excited",
+      "like": true
+    },
+    {
+      "body": "the course is ok"
+    },
+    {
+      "body": "bad course, im disappointed",
+      "like": false,
+      "tags": [
+        "bad",
+        "course",
+        "MongoDB"
+      ]
+    }
+  ]
+}]

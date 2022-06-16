@@ -1,0 +1,247 @@
+- Manejo de entidades complejas
+---------------------------
+user16 = {
+    'username':'user16',
+    'email':'user16@gmail.com',
+    'age': 29,
+    'status':'active',
+    'address': {
+        'zip':1001,
+        'country':'MX'
+    },
+    'course':['Python','MongoDB','Ruby','Java'],
+    comments:[
+        {
+            body: 'best course',
+            like: true,
+            tags: ['MongoDB']
+        },
+        {
+            body: 'super excited',
+            like: true,
+        },
+        {
+            body: 'the course is ok',
+        },
+        {
+            body: 'bad course, im disappointed',
+            like: false,
+            tags: ['bad','course', 'MongoDB']
+        }
+    ]
+};
+
+user14 = {
+    'username':'user14',
+    'email':'user14@gmail.com',
+    'age': 29,
+    'status':'active',
+    comments:[
+        {
+            body: 'best course',
+            like: true,
+        },
+    ]
+};
+
+user15 = {
+    'username':'user15',
+    'email':'user15@gmail.com',
+    'age': 29,
+    'status':'active',
+    comments:[
+        {
+            body: 'best course',
+            like: false,
+        },
+    ]
+};
+
+db.users.insertMany(
+    [
+        user13,
+        user14,
+        user15
+    ]
+);
+---------------------------
+
+Ejercicios:
+    1. Obtener todos los usuarios que radiquen en México.
+        ---------------------------
+        db.users.find({'address.country': 'MX'});
+        ---------------------------
+        ---------------------------
+        db.users.find(
+            {
+                'address.country': 'MX'
+            },
+            {
+                username: true,
+                'address.zip': true
+            }
+        );
+        ---------------------------
+
+    2. Actualizar el código postal.
+        ---------------------------
+        db.users.updateMany(
+            {
+                'address.zip': {$exists: true}
+            },
+            {
+                $set: {
+                    'address.zip': 110
+                }
+            }
+        );
+        ---------------------------
+    2.1. Añadir dirección a usuarios que no la posean.
+        ---------------------------
+        db.users.updateMany(
+            {
+                'address': {$exists: false}
+            },
+            {
+                $set: {
+                    'address': {
+                        'zip': 110,
+                        'country': 'UY'
+                    }
+                }
+            }
+        );
+        db.users.updateOne(
+            {
+                username: 'user13'
+            },
+            {
+                $set: 
+                {
+                    'address.location': 
+                    {
+                        'lat': -180,
+                        '1ong': 250
+                    }
+                }
+            }
+        );
+        ---------------------------
+
+    3. Obtener todos los usuarios que tengan en su 
+       listado cursos de Python.
+        ---------------------------
+        db.users.find(
+            {
+                'course': {$exists: true},
+            },
+            {
+                username: true
+            }
+        );
+        ---------------------------
+
+    4. Obtener todos los usuarios con por lo menos un
+       comentario positivo.
+       - $elemMatch nos permite filtrar sobre atributos
+         de documentos dentro de un listado
+        ---------------------------
+        db.users.find(
+            {
+                comments:{
+                    $elemMatch:{
+                        like: true
+                    }
+                }
+            }
+        );
+
+        db.users.find(
+            {
+                comments:{
+                    $elemMatch:{
+                        $and: [
+                            {like: true},
+                            {tags: {$exists: true}}
+                        ]
+                    }
+                }
+            }
+        );
+        ---------------------------
+    5. Añadir un nuevo comentario positivo al listado de
+       comentarios para el usuario 11.
+        ---------------------------
+        db.users.updateOne(
+            {
+                username: 'user13'
+            },
+            {
+                $push:{
+                    comments: {
+                        body: 'El curso de MongoDB es God',
+                        like: true
+                    }
+                }
+            }
+        );
+
+        db.users.updateOne(
+            {
+                username: 'user13'
+            },
+            {
+                $push:{
+                    course: 'C++'
+                }
+            }
+        );
+        ---------------------------
+
+    6. Añade una nueva etiqueta al 4º comentario del
+       usuario 13.
+        ---------------------------
+        db.users.updateOne(
+            {
+                username: 'user13'
+            },
+            {
+                $push:{
+                    'comments.3.tags': '#Malardo'
+                }
+            }
+        );
+        ---------------------------
+
+    7. Actualiza el segundo comentario del usuario 13.
+        ---------------------------
+        db.users.updateOne(
+            {
+                username: 'user13'
+            },
+            {
+                $push:{
+                    'comments.1.tags': '#God'
+                }
+            }
+        );
+        ---------------------------
+
+    8. Actualiza el comentario negativo del usuario 13
+        ---------------------------
+        db.users.updateOne(
+            {
+                username: 'user13',
+                'comments.like': false
+            },
+            {
+                $set:{
+                    'comments.$.body' : "Muy bueno el curso che",
+                    'comments.$.like' : true,
+                },
+                $unset:{
+                    'comments.$.tags': true
+                }
+            }
+        );
+        ---------------------------

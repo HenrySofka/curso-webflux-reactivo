@@ -1,0 +1,165 @@
+- Filtrar por un valor que posea el atributo
+    - Equivalente al LIKE en SQL
+    - al principio /^<val>/
+    - al final /<val>$/
+    - entre /<val>/
+---------------------------
+db.users.find({email: /.com$/});
+---------------------------
+
+- Métodos para colecciones "cursores"
+    - find(key: <val> or {  })
+    - count()
+    - limit(<val>)
+    - skip(<val>) 
+        -> salta los <val> documentos de la colección
+    - sort({key: 1 or -1})
+        -> ordena por un atribudo de mayor a menor
+    - pretty
+        -> devuelve la colección con formato JSON
+    - forEach( item => print(item.propiedad) )
+
+
+- Si le pasamos un segundo atributo al find() --> find({},{})
+  podremos mostrar atributos concretos en lugar de todos 
+  los que tenga
+  - true --> mostrar
+  - false --> no mostrar
+---------------------------
+db.users.find(
+    {
+        age: {$gt: 50}
+    },
+    {
+        _id: false,
+        username: true,
+        email: true
+    }
+)
+---------------------------
+
+- Actualizar datos
+    - Se pueden guardar consultas en una variable
+---------------------------
+var user = db.users.findOne();
+
+user.age = 28;
+user.email = 'user1@gmail.com';
+user.status = 'active';
+
+db.users.findOne();
+
+db.users.save(user);
+
+db.users.findOne();
+
+---------------------------
+---------------------------
+var user = db.users.findOne();
+user.age = 29;
+db.users.save(user);
+---------------------------
+
+- update nos permite actualizar por defecto un
+  solo documento
+---------------------------
+db.users.update(
+    {
+        "_id" : ObjectId("62a23a7e803c458f9292b68d"),
+    },
+    {
+        $set: {
+            username: 'Haff',
+            age: 22,
+        }
+    }
+);
+
+db.users.update(
+    {
+        "_id" : ObjectId("62a23a7e803c458f9292b68d"),
+    },
+    {
+        $unset: {
+            username: 'Haff',
+        }
+    }
+);
+---------------------------
+
+- Si se quiere modificar multiples documentos debemos
+  colocar un tercer argumento, habilitando la opción
+  multi
+---------------------------
+db.users.update(
+    {
+        status : 'inactive',
+    },
+    {
+        $set: {
+            status : 'active',
+        }
+    },
+    {
+        multi: true
+    }
+);
+---------------------------
+
+- En verciones recientes de MongoDB podemos utilizar
+    - updateOne
+    - updateMany
+---------------------------
+db.users.updateOne(
+    {
+        status : 'active',
+    },
+    {
+        $set: {
+            status : 'inactive',
+        }
+    }
+);
+
+db.users.updateMany(
+    {
+        email : { $exists: true },
+    },
+    {
+        $set: {
+            bio: 'Añade tu biografia.'
+        }
+    }
+);
+---------------------------
+- Incrementar algun valor de una colección en un <val>
+---------------------------
+db.users.updateMany(
+    {
+    },
+    {
+        $inc: {
+            age: 1
+        }
+    }
+);
+---------------------------
+
+- Método para eliminar "remove"
+- elimina todos los documentos que cumplan las condiciones
+---------------------------
+db.users.remove({
+    status: 'inactive'
+});
+---------------------------
+
+
+- Método para eliminar una colección
+---------------------------
+db.users.drop();
+---------------------------
+
+- Método para eliminar una base de datos
+---------------------------
+db.dropDatabase();
+---------------------------
